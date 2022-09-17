@@ -1,0 +1,3 @@
+class Platinum extends Conta{
+    
+}
