@@ -10,7 +10,78 @@
       charset="utf-8"
       src="scripts/sistema.js"
     ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="scripts/conta.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="scripts/platinum.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="scripts/basica.js"
+    ></script>
+    <script
+      type="text/javascript"
+      charset="utf-8"
+      src="scripts/estudante.js"
+    ></script>
     <title>Banco Eletronico</title>
   </head>
-  <body></body>
+  <body>
+    <div id="telamain">
+      <div id="op_cliente">
+        <input class="alterna" type="button" value="Alternar" onclick="sis.alterna()"></input>
+        <h3>Tela Cliente</h3>
+        <h1>Banco RedGrey</h1>
+        <ul>
+            <li><input class="but" type="button" value="Transferir" onclick="estac.onoffEstacionar()"></input></li>
+            <li><input class="but" type="button" value="Sacar" onclick="estac.onoffLiberar()"></input></li>
+            <li><input class="but" type="button" value="Depositar" onclick="estac.gerarRelatorio()"></input></li>
+            <li><input class="but" type="button" value="Extrato" onclick="estac.getSaldo()"></input></li>
+        </ul>
+      </div>
+      <div id="op_gerente">
+        <input class="alterna" type="button" value="Alternar" onclick="sis.alterna()"></input>
+        <h3>Tela Gerente</h3>
+        <h1>Banco RedGrey</h1>
+        <ul>
+            <li><input class="but" type="button" value="Criar Conta" onclick="sis.apareceCriar()"></input></li>
+            <li><input class="but" type="button" value="Listar Contas" onclick="estac.onoffLiberar()"></input></li>
+            <li><input class="but" type="button" value="Avançar mês" onclick="estac.gerarRelatorio()"></input></li>
+        </ul>
+      </div>
+      <div id="cadastro">
+        <form id="form">
+
+              <h2 id="n_conta"></h2>
+            
+              <div class="campo">
+                  <label for="nome"><strong>Nome:</strong></label>
+                  <input type="text" name="nome" id="nome" style="width: 50%;">
+              </div>            
+
+              <div class="campo">
+                <label><strong>Tipo de conta?</strong></label>
+                <label>
+                    <input type="radio" name="tipo" value="platinum" checked>Platinum</input>
+                </label>
+                <label>
+                    <input type="radio" name="tipo" value="basico">Básico</input>
+                </label>
+                <label>
+                    <input type="radio" name="tipo" value="estudante">Estudante</input>
+              </label>
+              </div>
+            
+              <input class="confirma" type="button" value="Concluído" onclick="sis.criarConta()"></input>
+              
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

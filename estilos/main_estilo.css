@@ -1,0 +1,93 @@
+body {
+    background-color: silver;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    font-family: "Arial";
+  }
+
+  #telamain{
+    background-color: grey;
+    width: 60%;
+    margin-left: 20%;
+  }
+
+  #op_gerente {
+    padding: 1%;
+  }
+
+  #op_cliente {
+    display: none;
+    padding: 1%;
+  }
+
+  .but {
+    background-color: crimson;
+    border: 2px solid black;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 1.5em;
+    height: 50px;
+  }
+
+  .alterna {
+    background-color: crimson;
+    border: 2px solid black;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    font-size: 1em;
+    height: 30px;
+  }
+  
+  ul {
+    padding: 0%;
+    text-align: center;
+  }
+  
+  li {
+    display: inline-block;
+    text-decoration: none;
+    list-style-type: none;
+    margin: 0% 2% 0% 2%;
+  }
+  
+  h1 {
+    color: gainsboro;
+    font-weight: 900;
+    font-size: 2.5em;
+    -webkit-text-stroke: 2px crimson;
+    text-align: center;
+    font-family: "Arial";
+    padding-bottom: 1%;
+  }
+  
+  h3 {
+    color: crimson;
+    font-weight: 600;
+    font-size: 1em;
+    text-align: left;
+    font-family: "Arial";
+  }
+
+  #cadastro{
+    display: none;
+    margin: auto;
+  }
+
+  #form{
+    padding: 4%;
+    text-align: center;
+  }
+
+  .campo {
+    margin-bottom: 2%;
+  }
+
+  .confirma {
+    color: gainsboro;
+    background-color: crimson;
+    cursor: pointer;
+    font-size: 1.5em;
+  }
