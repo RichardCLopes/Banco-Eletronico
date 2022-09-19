@@ -51,7 +51,7 @@
         <h1>Banco RedGrey</h1>
         <ul>
             <li><input class="but" type="button" value="Criar Conta" onclick="sis.apareceCriar()"></input></li>
-            <li><input class="but" type="button" value="Listar Contas" onclick="estac.onoffLiberar()"></input></li>
+            <li><input class="but" type="button" value="Listar Contas" onclick="sis.listaContas()"></input></li>
             <li><input class="but" type="button" value="Avançar mês" onclick="estac.gerarRelatorio()"></input></li>
         </ul>
       </div>
@@ -78,9 +78,12 @@
               </label>
               </div>
             
-              <input class="confirma" type="button" value="Concluído" onclick="sis.criarConta()"></input>
-              
+              <input class="confirma" type="button" value="Concluído" onclick="sis.criarConta()"></input>        
         </form>
+      </div>
+      <div id="corp_list">
+        <h1>Contas:</h1>
+        <h2 id="list_contas">Vazio</h2>
       </div>
     </div>
   </body>

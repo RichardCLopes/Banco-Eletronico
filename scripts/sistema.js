@@ -15,13 +15,13 @@ class Sistema{
             
             if (ent_tipo == "platinum") {
               var obje = new Platinum(this.numero_conta, ent_nome, 0);
-              this.contas.unshift(obje);
+              this.contas.push(obje);
             } else if(ent_tipo == "basico"){
-                var obje = new Basico(this.numero_conta, ent_nome, 0);
-                this.contas.unshift(obje);
+                var obje = new Basica(this.numero_conta, ent_nome, 0);
+                this.contas.push(obje);
             }else{
-                var obje = new estudante(this.numero_conta, ent_nome, 0);
-                this.contas.unshift(obje);
+                var obje = new Estudante(this.numero_conta, ent_nome, 0);
+                this.contas.push(obje);
             }
             
         var con_cadastro = document.getElementById("cadastro");
@@ -29,6 +29,22 @@ class Sistema{
         document.getElementById("form").reset();
         this.numero_conta++;
      
+    }
+
+    listaContas(){
+        var container = document.getElementById("corp_list");
+
+        if (container.style.display === "block") {
+          container.style.display = "none";
+        } else {
+          container.style.display = "block";
+        }
+
+        document.getElementById("list_contas").innerText = "";
+        for(let i=0;i<this.contas.length;i++){
+            var listcon = document.getElementById("list_contas").innerText;
+            document.getElementById("list_contas").innerText = listcon + this.contas[i].num + this.contas[i].nome + '\n';
+        }
     }
     
     alterna(){
