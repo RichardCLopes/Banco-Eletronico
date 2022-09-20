@@ -60,7 +60,8 @@ body {
     -webkit-text-stroke: 2px crimson;
     text-align: center;
     font-family: "Arial";
-    padding-bottom: 1%;
+    padding: 0%;
+    margin: 0%;
   }
   
   h3 {
@@ -93,5 +94,29 @@ body {
   }
 
   #corp_list{
+    display: none;
+    margin-bottom: 2%;
+    margin-bottom: 50px;
+  }
+
+  table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  td,
+  th {
+    border: 2px solid crimson;
+    padding: 8px;
+    text-align: center;
+  }
+
+  #tabela {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+  }
+  
+  #transferir {
     display: none;
   }
