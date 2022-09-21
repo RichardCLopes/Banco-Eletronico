@@ -1,4 +1,6 @@
 class Conta {
+    extrato = new Array();
+
     constructor(num, nome, saldo){
         this._num = num;
         this._nome = nome;
@@ -27,5 +29,13 @@ class Conta {
 
     set saldo(saldo){
         this._saldo = saldo;
+    }
+
+    get extrato(){
+        return this.extrato;
+    }
+
+    set extrato(movimentacao){
+        this.extrato.push(movimentacao);
     }
 }
