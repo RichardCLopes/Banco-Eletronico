@@ -77,7 +77,7 @@ h3 {
   margin: auto;
 }
 
-#form {
+.form {
   padding: 4%;
   text-align: center;
 }
@@ -118,5 +118,13 @@ th {
 }
 
 #transferir {
+  display: none;
+}
+
+#depositar {
+  display: none;
+}
+
+#sacar {
   display: none;
 }

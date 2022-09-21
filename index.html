@@ -40,8 +40,8 @@
         <h1>Banco RedGrey</h1>
         <ul>
             <li><input class="but" type="button" value="Transferir" onclick="sis.apareceTransferencia()"></input></li>
-            <li><input class="but" type="button" value="Sacar" onclick="estac.onoffLiberar()"></input></li>
-            <li><input class="but" type="button" value="Depositar" onclick="estac.gerarRelatorio()"></input></li>
+            <li><input class="but" type="button" value="Sacar" onclick="sis.apareceSacar()"></input></li>
+            <li><input class="but" type="button" value="Depositar" onclick="sis.apareceDepositar()"></input></li>
             <li><input class="but" type="button" value="Extrato" onclick="estac.getSaldo()"></input></li>
         </ul>
       </div>
@@ -56,7 +56,7 @@
         </ul>
       </div>
       <div id="cadastro">
-        <form id="form">
+        <form class="form">
 
               <h2 id="n_conta"></h2>
             
@@ -94,7 +94,7 @@
         <br>
       </div>
       <div id="transferir">
-        <form id="form">
+        <form class="form">
 
           <h1>Transferência:</h1>
             
@@ -112,6 +112,40 @@
               </div>           
 
               <input class="confirma" type="button" value="Transferir" onclick="sis.transferir()"></input>        
+        </form>
+      </div>
+      <div id="sacar">
+        <form class="form">
+
+          <h1>Sacar:</h1>
+            
+              <div class="campo">
+                  <label for="sac"><strong>Quantia: </strong></label>
+                  <input type="text" name="sac" id="sac" style="width: 20%;">
+              </div>   
+              <div class="campo">
+                <label for="conts"><strong>Nº da Conta: </strong></label>
+                <input type="text" name="conts" id="conts" style="width: 20%;">
+              </div>        
+
+              <input class="confirma" type="button" value="Sacar" onclick="sis.sacar()"></input>        
+        </form>
+      </div>
+      <div id="depositar">
+        <form class="form">
+
+          <h1>Depositar:</h1>
+            
+              <div class="campo">
+                  <label for="dep"><strong>Quantia: </strong></label>
+                  <input type="text" name="dep" id="dep" style="width: 20%;">
+              </div>   
+              <div class="campo">
+                <label for="cont"><strong>Nº da Conta: </strong></label>
+                <input type="text" name="cont" id="cont" style="width: 20%;">
+              </div>        
+
+              <input class="confirma" type="button" value="Depositar" onclick="sis.depositar()"></input>        
         </form>
       </div>
     </div>
