@@ -1,41 +1,41 @@
 class Conta {
-    extrato = new Array();
+  extrato = new Array();
 
-    constructor(num, nome, saldo){
-        this._num = num;
-        this._nome = nome;
-        this._saldo = saldo;
-    }
-     
-    get num(){
-        return this._num;
-    }
+  constructor(num, nome, saldo) {
+    this._num = num;
+    this._nome = nome;
+    this._saldo = saldo;
+  }
 
-    set num(num){
-        this._num = num;
-    }
+  get num() {
+    return this._num;
+  }
 
-    get nome(){
-        return this._nome;
-    }
+  set num(num) {
+    this._num = num;
+  }
 
-    set nome(nome){
-        this._nome = nome;
-    }
+  get nome() {
+    return this._nome;
+  }
 
-    get saldo(){
-        return this._saldo;
-    }
+  set nome(nome) {
+    this._nome = nome;
+  }
 
-    set saldo(saldo){
-        this._saldo = saldo;
-    }
+  get saldo() {
+    return this._saldo;
+  }
 
-    get extrato(){
-        return this.extrato;
-    }
+  set saldo(saldo) {
+    this._saldo = saldo;
+  }
 
-    set extrato(movimentacao){
-        this.extrato.push(movimentacao);
-    }
+  get extrato() {
+    return this.extrato;
+  }
+
+  addExtrato(movimentacao) {
+    this.extrato.unshift(movimentacao);
+  }
 }

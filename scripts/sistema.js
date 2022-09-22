@@ -3,6 +3,8 @@ class Sistema {
   contas = new Array();
 
   apareceCriar() {
+    var con_lis = document.getElementById("corp_list");
+    con_lis.style.display = "none";
     var con_cadastro = document.getElementById("cadastro");
 
     if (con_cadastro.style.display === "block") {
@@ -21,6 +23,8 @@ class Sistema {
     con_sac.style.display = "none";
     var con_dep = document.getElementById("depositar");
     con_dep.style.display = "none";
+    var con_ext = document.getElementById("extrato");
+    con_ext.style.display = "none";
 
     if (con_tra.style.display === "block") {
       con_tra.style.display = "none";
@@ -35,6 +39,8 @@ class Sistema {
     con_sac.style.display = "none";
     var con_tra = document.getElementById("transferir");
     con_tra.style.display = "none";
+    var con_ext = document.getElementById("extrato");
+    con_ext.style.display = "none";
 
     if (con_dep.style.display === "block") {
       con_dep.style.display = "none";
@@ -49,12 +55,65 @@ class Sistema {
     con_dep.style.display = "none";
     var con_tra = document.getElementById("transferir");
     con_tra.style.display = "none";
-
+    var con_ext = document.getElementById("extrato");
+    con_ext.style.display = "none";
     if (con_sac.style.display === "block") {
       con_sac.style.display = "none";
     } else {
       con_sac.style.display = "block";
     }
+  }
+
+  apareceExtrato() {
+    var con_ext = document.getElementById("extrato");
+    var con_sac = document.getElementById("sacar");
+    con_sac.style.display = "none";
+    var con_dep = document.getElementById("depositar");
+    con_dep.style.display = "none";
+    var con_tra = document.getElementById("transferir");
+    con_tra.style.display = "none";
+
+    if (con_ext.style.display === "block") {
+      con_ext.style.display = "none";
+    } else {
+      con_ext.style.display = "block";
+    }
+  }
+
+  extrato() {
+    var ent_conte = document.getElementById("conte").value;
+
+    var tabl = document.getElementById("tabext");
+    for (var i = tabl.rows.length - 1; i > 0; i--) {
+      tabl.deleteRow(i);
+    }
+
+    for (let i = 0; i < this.contas.length; i++) {
+      if (ent_conte == this.contas[i].num) {
+        window.alert("ad");
+        if (this.contas[i] instanceof Platinum) {
+          var tipo = "Platinum";
+        } else if (this.contas[i] instanceof Basica) {
+          var tipo = "Básico";
+        } else {
+          var tipo = "Estudante";
+        }
+        var aux_con = this.contas[i].extrato;
+        for (let j = 0; j < aux_con.length; j++) {
+          var aux_item = aux_con[j];
+          var tabela = document.getElementById("tabext");
+          var linha = tabela.insertRow(1);
+          var cel1 = linha.insertCell(0);
+          var cel2 = linha.insertCell(1);
+          var cel3 = linha.insertCell(2);
+          cel1.innerHTML = aux_con.length - j + "º";
+          cel2.innerHTML = aux_item[0];
+          cel3.innerHTML =
+            "R$" + parseFloat(parseFloat(aux_item[1], 10).toFixed(2), 10);
+        }
+      }
+    }
+    document.getElementById("f5").reset();
   }
 
   criarConta() {
@@ -76,11 +135,13 @@ class Sistema {
     con_lis.style.display = "none";
     var con_cadastro = document.getElementById("cadastro");
     con_cadastro.style.display = "none";
-    document.getElementById("form").reset();
+    document.getElementById("f1").reset();
     this.numero_conta++;
   }
 
   listaContas() {
+    var con_cadastro = document.getElementById("cadastro");
+    con_cadastro.style.display = "none";
     var container = document.getElementById("corp_list");
 
     if (container.style.display === "block") {
@@ -89,7 +150,7 @@ class Sistema {
       container.style.display = "block";
     }
 
-    var table = document.getElementById("tabela");
+    var table = document.getElementById("tablis");
     for (var i = table.rows.length - 1; i > 0; i--) {
       table.deleteRow(i);
     }
@@ -102,7 +163,7 @@ class Sistema {
       } else {
         var tipo = "Estudante";
       }
-      var tabela = document.getElementById("tabela");
+      var tabela = document.getElementById("tablis");
       var linha = tabela.insertRow(1);
       var cel1 = linha.insertCell(0);
       var cel2 = linha.insertCell(1);
@@ -117,14 +178,18 @@ class Sistema {
   }
 
   alterna() {
-    var con_lis = document.getElementById("corp_list");
-    con_lis.style.display = "none";
     var con_cadastro = document.getElementById("cadastro");
     con_cadastro.style.display = "none";
-    var con_dep = document.getElementById("depositar");
-    con_dep.style.display = "none";
+    var con_lis = document.getElementById("corp_list");
+    con_lis.style.display = "none";
     var con_tra = document.getElementById("transferir");
     con_tra.style.display = "none";
+    var con_sac = document.getElementById("sacar");
+    con_sac.style.display = "none";
+    var con_dep = document.getElementById("depositar");
+    con_dep.style.display = "none";
+    var con_ext = document.getElementById("extrato");
+    con_ext.style.display = "none";
     var con_ger = document.getElementById("op_gerente");
     var con_cli = document.getElementById("op_cliente");
 
@@ -147,13 +212,13 @@ class Sistema {
         if (ent_ori == this.contas[i].num) {
           if (this.contas[i] instanceof Platinum) {
             this.contas[i].saldo = this.contas[i].saldo - ent_quan;
-            this.contas[i].extrato = ["transferencia", -ent_quan];
-            for (let i = 0; i < this.contas.length; i++) {
-              if (ent_des == this.contas[i].num) {
-                this.contas[i].saldo =
-                  parseFloat(this.contas[i].saldo, 10) +
+            this.contas[i].addExtrato(["transferencia", -ent_quan]);
+            for (let j = 0; j < this.contas.length; j++) {
+              if (ent_des == this.contas[j].num) {
+                this.contas[j].saldo =
+                  parseFloat(this.contas[j].saldo, 10) +
                   parseFloat(ent_quan, 10);
-                this.contas[i].extrato = ["transferencia", ent_quan];
+                this.contas[j].addExtrato(["transferencia", ent_quan]);
               }
             }
           } else if (
@@ -161,13 +226,13 @@ class Sistema {
             this.contas[i].saldo - ent_quan >= -1000
           ) {
             this.contas[i].saldo = this.contas[i].saldo - ent_quan;
-            this.contas[i].extrato = ["transferencia", -ent_quan];
-            for (let i = 0; i < this.contas.length; i++) {
-              if (ent_des == this.contas[i].num) {
-                this.contas[i].saldo =
-                  parseFloat(this.contas[i].saldo, 10) +
+            this.contas[i].addExtrato(["transferencia", -ent_quan]);
+            for (let j = 0; j < this.contas.length; j++) {
+              if (ent_des == this.contas[j].num) {
+                this.contas[j].saldo =
+                  parseFloat(this.contas[j].saldo, 10) +
                   parseFloat(ent_quan, 10);
-                this.contas[i].extrato = ["transferencia", ent_quan];
+                this.contas[j].addExtrato(["transferencia", ent_quan]);
               }
             }
           } else if (
@@ -175,20 +240,20 @@ class Sistema {
             this.contas[i].saldo - ent_quan >= -300
           ) {
             this.contas[i].saldo = this.contas[i].saldo - ent_quan;
-            this.contas[i].extrato = ["transferencia", -ent_quan];
-            for (let i = 0; i < this.contas.length; i++) {
-              if (ent_des == this.contas[i].num) {
-                this.contas[i].saldo =
-                  parseFloat(this.contas[i].saldo, 10) +
+            this.contas[i].addExtrato(["transferencia", -ent_quan]);
+            for (let j = 0; j < this.contas.length; j++) {
+              if (ent_des == this.contas[j].num) {
+                this.contas[j].saldo =
+                  parseFloat(this.contas[j].saldo, 10) +
                   parseFloat(ent_quan, 10);
-                this.contas[i].extrato = ["transferencia", ent_quan];
+                this.contas[j].addExtrato(["transferencia", ent_quan]);
               }
             }
           }
         }
       }
     }
-
+    document.getElementById("f2").reset();
     var con_tra = document.getElementById("transferir");
     con_tra.style.display = "none";
   }
@@ -202,23 +267,24 @@ class Sistema {
         if (ent_cons == this.contas[i].num) {
           if (this.contas[i] instanceof Platinum) {
             this.contas[i].saldo = this.contas[i].saldo - ent_sac;
-            this.contas[i].extrato = ["saque", -ent_sac];
+            this.contas[i].addExtrato(["saque", -ent_sac]);
           } else if (
             this.contas[i] instanceof Basica &&
             this.contas[i].saldo - ent_sac >= -1000
           ) {
             this.contas[i].saldo = this.contas[i].saldo - ent_sac;
-            this.contas[i].extrato = ["saque", -ent_sac];
+            this.contas[i].addExtrato(["saque", -ent_sac]);
           } else if (
             this.contas[i] instanceof Estudante &&
             this.contas[i].saldo - ent_sac >= -300
           ) {
             this.contas[i].saldo = this.contas[i].saldo - ent_sac;
-            this.contas[i].extrato = ["saque", -ent_sac];
+            this.contas[i].addExtrato(["saque", -ent_sac]);
           }
         }
       }
     }
+    document.getElementById("f3").reset();
     var con_sac = document.getElementById("sacar");
     con_sac.style.display = "none";
   }
@@ -232,10 +298,11 @@ class Sistema {
         if (ent_con == this.contas[i].num) {
           this.contas[i].saldo =
             parseFloat(this.contas[i].saldo, 10) + parseFloat(ent_dep, 10);
-          this.contas[i].extrato = ["deposito", ent_dep];
+          this.contas[i].addExtrato(["deposito", ent_dep]);
         }
       }
     }
+    document.getElementById("f4").reset();
     var con_dep = document.getElementById("depositar");
     con_dep.style.display = "none";
   }

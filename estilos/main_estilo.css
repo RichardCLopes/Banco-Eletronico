@@ -112,7 +112,7 @@ th {
   text-align: center;
 }
 
-#tabela {
+.tabela {
   margin-bottom: 30px;
   padding-bottom: 30px;
 }
@@ -126,5 +126,9 @@ th {
 }
 
 #sacar {
+  display: none;
+}
+
+#extrato {
   display: none;
 }

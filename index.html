@@ -42,7 +42,7 @@
             <li><input class="but" type="button" value="Transferir" onclick="sis.apareceTransferencia()"></input></li>
             <li><input class="but" type="button" value="Sacar" onclick="sis.apareceSacar()"></input></li>
             <li><input class="but" type="button" value="Depositar" onclick="sis.apareceDepositar()"></input></li>
-            <li><input class="but" type="button" value="Extrato" onclick="estac.getSaldo()"></input></li>
+            <li><input class="but" type="button" value="Extrato" onclick="sis.apareceExtrato()"></input></li>
         </ul>
       </div>
       <div id="op_gerente">
@@ -56,7 +56,7 @@
         </ul>
       </div>
       <div id="cadastro">
-        <form class="form">
+        <form class="form" id="f1">
 
               <h2 id="n_conta"></h2>
             
@@ -83,7 +83,7 @@
       </div>
       <div id="corp_list">
         <h1>Contas:</h1>
-        <table id="tabela">
+        <table class="tabela" id="tablis">
           <tr>
             <th>Nº Conta</th>
             <th>Nome</th>
@@ -94,7 +94,7 @@
         <br>
       </div>
       <div id="transferir">
-        <form class="form">
+        <form class="form" id="f2">
 
           <h1>Transferência:</h1>
             
@@ -115,7 +115,7 @@
         </form>
       </div>
       <div id="sacar">
-        <form class="form">
+        <form class="form" id="f3">
 
           <h1>Sacar:</h1>
             
@@ -132,7 +132,7 @@
         </form>
       </div>
       <div id="depositar">
-        <form class="form">
+        <form class="form" id="f4">
 
           <h1>Depositar:</h1>
             
@@ -147,6 +147,24 @@
 
               <input class="confirma" type="button" value="Depositar" onclick="sis.depositar()"></input>        
         </form>
+      </div>
+      <div id="extrato">
+        <h1>Extrato:</h1>
+        <form class="form" id="f5">
+          <div class="campo">
+            <label for="conte"><strong>Nº da Conta: </strong></label>
+            <input type="text" name="conte" id="conte" style="width: 20%;">
+          </div>  
+          <input class="confirma" type="button" value="Confirmar" onclick="sis.extrato()"></input>
+      </form>
+        <table class="tabela" id="tabext">
+          <tr>
+            <th>Ordem</th>
+            <th>Operação</th>
+            <th>Movimentação</th>
+          </tr>
+        </table>
+        <br>
       </div>
     </div>
   </body>
