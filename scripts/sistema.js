@@ -111,6 +111,16 @@ class Sistema {
             10
           );
         }
+        var linha = tabela.insertRow(parseFloat(aux_con.length, 10) + 1);
+        var cel1 = linha.insertCell(0);
+        var cel2 = linha.insertCell(1);
+        var cel3 = linha.insertCell(2);
+        cel1.innerHTML = "---";
+        cel2.innerHTML = "saldo";
+        cel3.innerHTML = parseFloat(
+          parseFloat(this.contas[i].saldo, 10).toFixed(2),
+          10
+        );
       }
     }
     document.getElementById("f5").reset();
