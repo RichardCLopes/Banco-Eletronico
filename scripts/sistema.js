@@ -110,6 +110,11 @@ class Sistema {
             parseFloat(aux_item[1], 10).toFixed(2),
             10
           );
+          if (aux_item[1] < 0) {
+            cel3.style.backgroundColor = "rgba(255, 0, 0, 0.15)";
+          } else {
+            cel3.style.backgroundColor = "rgba(0, 255, 0, 0.15)";
+          }
         }
         var linha = tabela.insertRow(parseFloat(aux_con.length, 10) + 1);
         var cel1 = linha.insertCell(0);
@@ -121,6 +126,11 @@ class Sistema {
           parseFloat(this.contas[i].saldo, 10).toFixed(2),
           10
         );
+        if (this.contas[i].saldo < 0) {
+          cel3.style.backgroundColor = "rgba(255, 0, 0, 0.15)";
+        } else {
+          cel3.style.backgroundColor = "rgba(0, 255, 0, 0.15)";
+        }
       }
     }
     document.getElementById("f5").reset();
