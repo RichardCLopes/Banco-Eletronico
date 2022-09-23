@@ -90,13 +90,11 @@ class Sistema {
 
     for (let i = 0; i < this.contas.length; i++) {
       if (ent_conte == this.contas[i].num) {
-        window.alert("ad");
-        if (this.contas[i] instanceof Platinum) {
-          var tipo = "Platinum";
-        } else if (this.contas[i] instanceof Basica) {
-          var tipo = "Básico";
+        if (this.contas[i].lim_e == 0) {
+          this.contas[i].saldo = this.contas[i].saldo - 0.5;
+          this.contas[i].addExtrato(["extrato adicional", -0.5]);
         } else {
-          var tipo = "Estudante";
+          this.contas[i].lim_e = this.contas[i].lim_e - 1;
         }
         var aux_con = this.contas[i].extrato;
         for (let j = 0; j < aux_con.length; j++) {
@@ -108,8 +106,10 @@ class Sistema {
           var cel3 = linha.insertCell(2);
           cel1.innerHTML = aux_con.length - j + "º";
           cel2.innerHTML = aux_item[0];
-          cel3.innerHTML =
-            "R$" + parseFloat(parseFloat(aux_item[1], 10).toFixed(2), 10);
+          cel3.innerHTML = parseFloat(
+            parseFloat(aux_item[1], 10).toFixed(2),
+            10
+          );
         }
       }
     }
@@ -121,13 +121,13 @@ class Sistema {
     var ent_tipo = document.querySelector('input[name="tipo"]:checked').value;
 
     if (ent_tipo == "platinum") {
-      var obje = new Platinum(this.numero_conta, ent_nome, 0);
+      var obje = new Platinum(this.numero_conta, ent_nome, 0, -1, -1, "no");
       this.contas.unshift(obje);
     } else if (ent_tipo == "basico") {
-      var obje = new Basica(this.numero_conta, ent_nome, 0);
+      var obje = new Basica(this.numero_conta, ent_nome, 0, 3, 3, -1000);
       this.contas.unshift(obje);
     } else {
-      var obje = new Estudante(this.numero_conta, ent_nome, 0);
+      var obje = new Estudante(this.numero_conta, ent_nome, 0, 1, 1, -300);
       this.contas.unshift(obje);
     }
 
@@ -172,8 +172,35 @@ class Sistema {
       cel1.innerHTML = this.contas[i].num;
       cel2.innerHTML = this.contas[i].nome;
       cel3.innerHTML = tipo;
-      cel4.innerHTML =
-        "R$ " + parseFloat(parseFloat(this.contas[i].saldo, 10).toFixed(2), 10);
+      cel4.innerHTML = parseFloat(
+        parseFloat(this.contas[i].saldo, 10).toFixed(2),
+        10
+      );
+    }
+  }
+
+  avancarMes() {
+    for (let i = 0; i < this.contas.length; i++) {
+      if (this.contas[i] instanceof Platinum) {
+        this.contas[i].lim_e = -1;
+        this.contas[i].lim_t = -1;
+      } else if (this.contas[i] instanceof Basica) {
+        this.contas[i].lim_e = 3;
+        this.contas[i].lim_t = 3;
+        if (this.contas[i].saldo <= 0) {
+          this.contas[i].limite = this.contas[i].saldo - 1000;
+        } else {
+          this.contas[i].limite = -1000;
+        }
+      } else {
+        this.contas[i].lim_e = 1;
+        this.contas[i].lim_t = 1;
+        if (this.contas[i].saldo <= 0) {
+          this.contas[i].limite = this.contas[i].saldo - 300;
+        } else {
+          this.contas[i].limite = -300;
+        }
+      }
     }
   }
 
@@ -223,30 +250,54 @@ class Sistema {
             }
           } else if (
             this.contas[i] instanceof Basica &&
-            this.contas[i].saldo - ent_quan >= -1000
+            this.contas[i].saldo - ent_quan >= this.contas[i].limite
           ) {
-            this.contas[i].saldo = this.contas[i].saldo - ent_quan;
-            this.contas[i].addExtrato(["transferencia", -ent_quan]);
-            for (let j = 0; j < this.contas.length; j++) {
-              if (ent_des == this.contas[j].num) {
-                this.contas[j].saldo =
-                  parseFloat(this.contas[j].saldo, 10) +
-                  parseFloat(ent_quan, 10);
-                this.contas[j].addExtrato(["transferencia", ent_quan]);
+            if (
+              this.contas[i].lim_t == 0 &&
+              this.contas[i].saldo - ent_quan - 0.5 < this.contas[i].limite
+            ) {
+            } else {
+              this.contas[i].saldo = this.contas[i].saldo - ent_quan;
+              this.contas[i].addExtrato(["transferencia", -ent_quan]);
+              for (let j = 0; j < this.contas.length; j++) {
+                if (ent_des == this.contas[j].num) {
+                  this.contas[j].saldo =
+                    parseFloat(this.contas[j].saldo, 10) +
+                    parseFloat(ent_quan, 10);
+                  this.contas[j].addExtrato(["transferencia", ent_quan]);
+                }
+              }
+              if (this.contas[i].lim_t == 0) {
+                this.contas[i].saldo = this.contas[i].saldo - 0.5;
+                this.contas[i].addExtrato(["transferencia adicional", -0.5]);
+              } else {
+                this.contas[i].lim_t = this.contas[i].lim_t - 1;
               }
             }
           } else if (
             this.contas[i] instanceof Estudante &&
-            this.contas[i].saldo - ent_quan >= -300
+            this.contas[i].saldo - ent_quan >= this.contas[i].limite
           ) {
-            this.contas[i].saldo = this.contas[i].saldo - ent_quan;
-            this.contas[i].addExtrato(["transferencia", -ent_quan]);
-            for (let j = 0; j < this.contas.length; j++) {
-              if (ent_des == this.contas[j].num) {
-                this.contas[j].saldo =
-                  parseFloat(this.contas[j].saldo, 10) +
-                  parseFloat(ent_quan, 10);
-                this.contas[j].addExtrato(["transferencia", ent_quan]);
+            if (
+              this.contas[i].lim_t == 0 &&
+              this.contas[i].saldo - ent_quan - 0.5 < this.contas[i].limite
+            ) {
+            } else {
+              this.contas[i].saldo = this.contas[i].saldo - ent_quan;
+              this.contas[i].addExtrato(["transferencia", -ent_quan]);
+              for (let j = 0; j < this.contas.length; j++) {
+                if (ent_des == this.contas[j].num) {
+                  this.contas[j].saldo =
+                    parseFloat(this.contas[j].saldo, 10) +
+                    parseFloat(ent_quan, 10);
+                  this.contas[j].addExtrato(["transferencia", ent_quan]);
+                }
+              }
+              if (this.contas[i].lim_t == 0) {
+                this.contas[i].saldo = this.contas[i].saldo - 0.5;
+                this.contas[i].addExtrato(["transferencia adicional", -0.5]);
+              } else {
+                this.contas[i].lim_t = this.contas[i].lim_t - 1;
               }
             }
           }
@@ -270,13 +321,13 @@ class Sistema {
             this.contas[i].addExtrato(["saque", -ent_sac]);
           } else if (
             this.contas[i] instanceof Basica &&
-            this.contas[i].saldo - ent_sac >= -1000
+            this.contas[i].saldo - ent_sac >= this.contas[i].limite
           ) {
             this.contas[i].saldo = this.contas[i].saldo - ent_sac;
             this.contas[i].addExtrato(["saque", -ent_sac]);
           } else if (
             this.contas[i] instanceof Estudante &&
-            this.contas[i].saldo - ent_sac >= -300
+            this.contas[i].saldo - ent_sac >= this.contas[i].limite
           ) {
             this.contas[i].saldo = this.contas[i].saldo - ent_sac;
             this.contas[i].addExtrato(["saque", -ent_sac]);

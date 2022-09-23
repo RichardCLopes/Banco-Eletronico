@@ -1,5 +1,5 @@
-class Basica extends Conta{
-    constructor(num, nome, saldo){
-        super(num, nome, saldo);
-    }
+class Basica extends Conta {
+  constructor(num, nome, saldo, lim_e, lim_t, limite) {
+    super(num, nome, saldo, lim_e, lim_t, limite);
+  }
 }
